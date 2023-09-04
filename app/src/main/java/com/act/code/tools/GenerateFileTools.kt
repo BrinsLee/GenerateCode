@@ -24,7 +24,7 @@ object GenerateFileTools {
 
     // 随机获取其中的一个方法
     fun generateFunAction(): HashMap<String, MutableList<String>> {
-        return when ((0..65).random()) {
+        return when ((0..68).random()) {
             0 -> GenerateBooleanFun.generateBooleanFun()
             1 -> GenerateBooleanFun.generateBooleanFun2()
             2 -> GenerateBooleanFun.generateBooleanFun3()
@@ -100,7 +100,9 @@ object GenerateFileTools {
             62 -> GenerateStringFun.generateStringFun18()
             63 -> GenerateVoidFun.generateVoidFun6()
             64 -> GenerateIntFun.generateIntFun25()
-
+            65 -> GenerateVoidFun.generateVoidFun7()
+            66 -> GenerateStringFun.generateStringFun19()
+            67 -> GenerateStringFun.generateStringFun20()
 
             else -> GenerateVoidFun.generateVoidFun4()
         }

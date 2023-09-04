@@ -34,13 +34,21 @@ object GenerateActivityFun {
 
 
 
-    fun generateActOnCreate(): MutableList<String> {
+    fun generateActOnCreate(list: List<String>? = null): MutableList<String> {
         val layoutName = FileUtils.generateLayoutFile()  // 布局文件
         val mutableList = mutableListOf<String>().apply {
             add("@Override // android.app.Activity")
             add("protected void onCreate(@Nullable Bundle bundle) {")
             add("super.onCreate(bundle);")
             add("setContentView(R.layout.${layoutName});")
+            list?.forEach {
+                val name = it.split("->")[1].split(".")[0]
+                if (name.contains("Layout")) {
+                    add("new ${name}(this, null ,0);")
+                } else {
+                    add("new ${name}();")
+                }
+            }
             add("}")
             add("\n")
         }
@@ -57,7 +65,12 @@ object GenerateActivityFun {
             add("protected void onNewIntent(Intent intent) {")
             add("super.onNewIntent(intent);")
             list?.forEach {
-                add("new ${it.split("->")[1].split(".")[0]}();")
+                val name = it.split("->")[1].split(".")[0]
+                if (name.contains("Layout")) {
+                    add("new ${name}(this, null ,0);")
+                } else {
+                    add("new ${name}();")
+                }
             }
             add("}")
             add("\n")

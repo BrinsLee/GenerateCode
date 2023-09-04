@@ -3,6 +3,7 @@ package com.act.code.generate
 import com.act.code.FileUtils
 import com.act.code.tools.generateArgs
 import com.act.code.tools.generateFunName
+import com.act.code.tools.generateKey
 
 object GenerateIntFun {
 
@@ -706,5 +707,31 @@ object GenerateIntFun {
         return map
     }
 
+    fun generateIntFun26() : HashMap<String, MutableList<String>> {
+        val map = HashMap<String, MutableList<String>>()
+        val stringFunName = generateFunName()
+        val mutableList = mutableListOf<String>().apply {
+            add("public int ${stringFunName}(String ha, String nee) {")
+            add("int n = ha.length();")
+            add("int m = nee.length();")
+            add("for (int i = 0; i + m <= n; i++) {")
+            add("boolean flag = true;")
+            add("for (int j = 0; j < m; j++) {")
+            add("if (ha.charAt(i + j) != nee.charAt(j)) {")
+            add("flag = false;")
+            add("break;")
+            add("}")
+            add("}")
+            add("if(flag) {")
+            add("return i;")
+            add("}")
+            add("}")
+            add("return -1;")
+            add("}")
+        }
+        val funName = "$stringFunName(\"${generateKey()}\", \"${generateKey(6)}\");"
+        map[funName] = mutableList
+        return map
+    }
 
 }

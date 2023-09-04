@@ -9,7 +9,7 @@ fun main() {
 }
 fun updateManifest(){
     val file = File("af/AndroidManifest.xml")
-    val pkg="ceooew.vrwojwo.eiwoaknskncw"
+    val pkg="com.belada.l205u2s9adga"
     FileUtils.updateManifest(file,pkg)
 }
 fun updateJavaFile(){

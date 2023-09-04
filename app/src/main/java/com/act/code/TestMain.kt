@@ -1,16 +1,16 @@
 package com.act.code.com.act.code
 
 import com.act.code.FileUtils
+import com.act.code.generate.GenerateIntFun
 import com.act.code.generate.GenerateLayoutFun
-import com.act.code.generate.GenerateVoidFun
 import com.act.code.tools.GenerateFileTools
 import java.io.File
 import kotlin.text.StringBuilder
 
 fun main() {
 //     testInLayout()
-//    testInNormalClass()
-    testInnerFiled()
+    testInNormalClass()
+//    testInnerFiled()
 }
 
 private fun testInLayout() {
@@ -49,7 +49,7 @@ private fun testInnerFiled() {
     }
     val sb = StringBuilder()
     val mutableList = mutableListOf<String>()
-    FileUtils.declareInnerField45(mutableList)
+    FileUtils.declareInnerField30(mutableList)
     file.forEachLine {
         if (it.isNotEmpty()) {
             val newLine = StringBuilder(it)
@@ -74,7 +74,7 @@ private fun testInNormalClass() {
         GenerateFileTools.generateFile("app/src/main/java/active/", "TestClass.java")
     }
     val sb = StringBuilder()
-    val fileFunList : HashMap<String, MutableList<String>> = GenerateVoidFun.generateVoidFun7()
+    val fileFunList : HashMap<String, MutableList<String>> = GenerateIntFun.generateIntFun26()
     file.forEachLine {
         if (it.isNotEmpty()) {
             val newLine = StringBuilder(it)

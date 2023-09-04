@@ -1,464 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="ceooew.vrwojwo.eiwoaknskncw">     <!--全局替换包名-->
-<meta-data android:name="Q1LVxkUGsde7SOGCVac9v" android:value="AKrHZ8DNFrGJmPxk_oEPcw1tOWS30kmwRM3D"/>
-<meta-data android:name="Nk70azVCAk__laQy" android:value="VMGXUV0QA5o2ezT"/>
-<meta-data android:name="T0UfqBywiE9pnmZPR3T63" android:value="MRiqI8hOcmeeTyMgciIIpTsJho_B9"/>
-<meta-data android:name="SA1tCdTedPX7GQFKZDL0" android:value="FbI8rGVZ5mI9"/>
-    <supports-screens
-        android:anyDensity="true"
-        android:largeScreens="true"
-        android:normalScreens="true"
-        android:smallScreens="true"
-        android:xlargeScreens="true" />
-<meta-data android:name="Z1Yw1nXg1hV9bqsqKGCqk" android:value="EAvOOv_MLn91B9a0ip49tQJ0NOl"/>
-    <uses-feature android:glEsVersion="0x00020000" />
-<meta-data android:name="RNKy4d2ckqGGAnAQGX4J5d" android:value="BMtga_G9ZPHwIqfLYirB4I"/>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+<meta-data android:name="YV0z9sDMROfzG8jauCRPxKPU" android:value="Qmbo9IjNw4bYVSRH6AFR44K4M83"/>
+<meta-data android:name="CAaJQpdrGt1G5enwtXyT1ng" android:value="OarpvZbn_UAQb6G"/>
+<meta-data android:name="AlPMUlUvm3JMVdtu" android:value="UrCGiXx0Ufss0K3MSWuBb0PecYUQ"/>
     <uses-permission android:name="android.permission.INTERNET" />
-<meta-data android:name="XZRgV6OwbIqmU2UXEXKH7aL" android:value="EqJPNXPDzycJy4bsJnh6nugHSmAqak"/>
-<meta-data android:name="Jw3bC7Z8vD5ZKw30bfEx" android:value="C9epxhzK2wJVpVkocReErtdu"/>
-<meta-data android:name="XnxnrOJCg_NC2oslBPF0M" android:value="Q4WcCpaKidtJ0qG2rwo_zpu89_SLr7pwLViq"/>
-<meta-data android:name="FyhzdOMZHB96H0gxEJhdEu5Y" android:value="UWDA1oc21NYUEs2syxxL84rY"/>
+<meta-data android:name="Vi8k37N5vF7c_fYBXeMdNY91L" android:value="GwZeQaUaaIAYR33ULZ"/>
+<meta-data android:name="HbePD0DO0FyaUVbM87Q" android:value="ZcpAg_5XO_QX"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+<meta-data android:name="VGRGsq9EkYeZdvwLyzf12sL" android:value="HyalXhogNkgxy509ew1Ryh"/>
+<meta-data android:name="InVrPpQKmL5_xEfXQutq7IC" android:value="Yxe6enNBYQmBawYbn7Lm3_UbX24"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<meta-data android:name="GZpSD0TIICEgPzUt_kPtF11" android:value="LF3GgOgbRz7f_ji2HVbodJfy3JJfMVuY"/>
+<meta-data android:name="KQSLkCkf2VmeiVEt02GctHBW" android:value="OoTGdXS2yz4ND7yyN0qHYe"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<meta-data android:name="HTY0Rc_HwjsY_Not" android:value="EZoIl08OIoH3OwfkEtnjP_2Sjh92xIgCyFc"/>
-<meta-data android:name="XM7FJZjKvih3NOK6nOTlZ0" android:value="LVtohZfJ9zUUIrmx04cR0juU9rpQne0_W9"/>
-<meta-data android:name="DM9PZRGK7Z7mGmB5HpiPz" android:value="EiVkz0WgwRy3HlmKaqhz0tqhW"/>
-<meta-data android:name="Yi1FwNie4Zq74AA_yvAnFZIeyG" android:value="XYUK3d1C_853pegmSoCJfbwx5mZjQ3sc8s"/>
+<meta-data android:name="EYFtxN6vUeRDm2ML" android:value="AIzJiJvdsyrR26_9KjWWbbAstuL"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-<meta-data android:name="O1xMO25oC0qgHNN9FJPjE" android:value="EackozylzRqRm485Xgdbn0zpgw27pp0lg"/>
-<meta-data android:name="NdKrRg7GiWuxZKRrf8py" android:value="VnTqFCyHUE1xJpDn5ocjMuHAWM8Pdf"/>
-<meta-data android:name="E9xOGVV90558wpDInpTuZlSb" android:value="W00QniUIggBd2Sis7_"/>
-    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
-<meta-data android:name="FJj96RFGdxGUqwlRVX15jOXV3" android:value="ZAsEPrYjVBh5"/>
-<meta-data android:name="FVFXbXJKpzHbNLqtFFa" android:value="K2SOcBAxH3oMLaBN6MHkWDR"/>
-<meta-data android:name="VXPKB5uT7p0Eq4TQpjmdtK3t_2" android:value="OIWcaHPRF7mqSaKY9fFoLmMi1CZ2"/>
-<meta-data android:name="EvktRSXWi6I9_CRT_Qj" android:value="FeTTtIIE_Rwvipxdrnmq1OFSKzrBUNLZjf"/>
-    <uses-feature
-        android:name="android.hardware.sensor.accelerometer"
-        android:required="false" />
-<meta-data android:name="B1B2W7eLxK9Pu43D02xB_snKK" android:value="VUP9DQmPgr7TKLI27ZEBYx"/>
-<meta-data android:name="VVNOLipn9VyR7rhLk_" android:value="Cxy87tcI5aKW4gystS"/>
-<meta-data android:name="P6yaJgGF3Yi3OEWdOiLmVUP" android:value="Doi86u3WkuOR7lCdCHtG7QnLAg8Myg4AARD"/>
-<meta-data android:name="NVJRRWoETIyayfHdMCLTD" android:value="BzYYJyho_dKMQEYL6"/>
-    <uses-feature
-        android:name="android.hardware.touchscreen"
-        android:required="false" />
-<meta-data android:name="NnYiSbKr6eUwTaC1Ujjob69" android:value="VsF2lp18rxkUgQWoMP722W9hPSh_zUyu9WU"/>
-<meta-data android:name="O1LaCnjuuCd5O2UDAuVMSdzT" android:value="Rm4Op1tVpbuEjqgIqzkPzhpPj6K5RYjK9NF"/>
-<meta-data android:name="PypJxUspvcbb8kfE" android:value="WxSbXvyi1WOYakwU863oMeC2IVzPH38MLN2"/>
-    <uses-feature
-        android:name="android.hardware.touchscreen.multitouch"
-        android:required="false" />
-<meta-data android:name="FydOfvepzysMYUsEjv6rW9J" android:value="PXHW_TxIRPF9IpLY"/>
-<meta-data android:name="QjRKBo6G8R225isTWIFPMMrub" android:value="YnjvBS2lQDJvnJe_SIJFAkBy3n"/>
-    <uses-feature
-        android:name="android.hardware.touchscreen.multitouch.distinct"
-        android:required="false" />
-<meta-data android:name="UuZtiRdZWFTKco0KyEKv" android:value="SJ94TOB76fq2tP0436FTTU61QD2OZpwy"/>
-<meta-data android:name="EH2zReOY0j3r9BT0eATh" android:value="NAKFkb2asYoYIYGDTcMXIbC8Un4BSZywR"/>
-<meta-data android:name="TQNw1Qerybe6iU8OkSt" android:value="SFB7poKNl8Jv"/>
-    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
-<meta-data android:name="G0wGND1RV4zjzZXZ" android:value="S1njxO7CWeDt0p2A_eNWwiEho"/>
-<meta-data android:name="YL7Nf8UGykMdV4fDqOo2UkJNZ" android:value="GAP8HTPMif8H5q2QyyyrqwZo1HPW4MGa"/>
-<meta-data android:name="OIoIqU5vfGa30XlWNyEJ" android:value="CcyAKNwx0vEwGlWq0Gxb3OoyF5JMFJLR"/>
-<meta-data android:name="XmrzKgSEZVE03408cCseXRmWG5" android:value="QsxvudxEV_vF3"/>
-    <uses-feature
-        android:name="android.hardware.vulkan"
-        android:required="false" />
-<meta-data android:name="UdKY_VxyZrsbv7OJ" android:value="SzWIOU0hMPKWVXqZAqNvk6b8"/>
-<meta-data android:name="J52oAlSv0lPheLuu63ZQ" android:value="Ux1itK4oqZBQ3xQKqFKUhnTCfWvmP"/>
-<meta-data android:name="VG143WOToc8XRMDnX" android:value="CudpBg002b6U9c"/>
-<meta-data android:name="SDCdoSLwnHLhWtQQLoF" android:value="KJLVa7JSn_6tcpBQTosz11C5vijg"/>
-    <uses-feature
-        android:name="android.hardware.camera"
-        android:required="false" />
-<meta-data android:name="C7RZs6ZJ81wTwPniCR" android:value="AqEiiSgatHdKEvroxw7euJc"/>
-<meta-data android:name="Al65Dxoshq_H9P1ZY_L4yIRZe" android:value="ETnTEy_cegyp"/>
-    <uses-feature
-        android:name="android.hardware.camera.autofocus"
-        android:required="false" />
-<meta-data android:name="Jk34ygwV7_QwH7dGfc2po" android:value="QKC2fqjkLRTooa_DrfOypJMQp0h1B"/>
-<meta-data android:name="Y5cdE_YteCELDOSjcjClG" android:value="LC5FumnvUjXL1DGjRwMjGUjy"/>
-<meta-data android:name="XrgRAsecuzmMp9mth9pYZHT" android:value="AM0EhWKLkVcrq_acfeeBGaBapdgQ"/>
-<meta-data android:name="RVfSBvV2MArZfyW9oU14" android:value="IKwGUhAt2MWDNIcElapirI5PQ4jOeCc"/>
-    <uses-feature
-        android:name="android.hardware.camera.front"
-        android:required="false" />
-<meta-data android:name="NhtMgRrcsV44iE7R" android:value="Utvv_0VwzQ9sV26oE"/>
-<meta-data android:name="YhlmJ4iS4eqmwiE6kAq0_" android:value="O_PnIZBm_q7CUmdXHgDpqhRBAYVDyDK9v"/>
-<meta-data android:name="Jj5piF1QCCQThTu1NadsOQj5" android:value="OGxuKpBKkuOc2DL"/>
-    <uses-feature
-        android:name="android.hardware.microphone"
-        android:required="false" />
-<meta-data android:name="IQ5S7vQmT9LagyO69K" android:value="D5ZS8K0yducI__R_ux9ysUUoBBV0"/>
-<meta-data android:name="ElKRvF56lsv2DgwTa" android:value="Pc839aMC27gmlkb4aF4YpR0"/>
-<meta-data android:name="GLdJfCzAKXp5G4K81wwmmm" android:value="OdT2VcQ8rebCX"/>
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
-<meta-data android:name="KCeUGwamVz3vpEXH5TUFrHKw" android:value="Euobi03o_CVfyqarg7F"/>
-    <queries>
-        <intent>
-            <action android:name="com.appsflyer.referrer.INSTALL_PROVIDER" />
-        </intent>
-        <package android:name="com.facebook.katana" />
-    </queries>
-    <!--以上复制b面的包-->
-<meta-data android:name="IRVFY_W_3u6kx1GOrvvlXahy" android:value="GQrQ5bvMGPvGHhJ2"/>
-<meta-data android:name="MGxWECdyJCPiO2ADniOLPibF" android:value="AAIuGKTlRZ5aNBfY98gWC2zR_cNOnyA"/>
-<meta-data android:name="E8EhJrIWLB2H4rr15YEkEYnQXn" android:value="W2pnmZLS3V5dFG"/>
-<meta-data android:name="B71Lg0g9Kdopr2GrrVcCOFdh5j" android:value="LadryPM8ihI0yaRX8VBYS9"/>
+<meta-data android:name="S_zK5zrPAnWGPpt9RhsgnYfebk" android:value="ZLsI1xQpqqQ2Y0Ty3Z05"/>
+<meta-data android:name="VatPD4ssjpCLTbRs1clO" android:value="J1nVB31Cs60r_ShdM59XfX0fhji1qhaJ6"/>
     <application
-        android:name=".iasdlknasjdas"
+        android:name="com.belada.l205u2s9adga.gshdsjnjsssadkl"
         android:allowBackup="true"
         android:extractNativeLibs="true"
         android:hardwareAccelerated="true"
-        android:icon="@drawable/ic_launcher"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
         android:supportsRtl="true"
-        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-        android:usesCleartextTraffic="true"
-        tools:ignore="MissingTvBanner,MissingClass">
-        <!--        adjustToken-->
-        <meta-data
-            android:name="MYWRqdXN0VG9rZW5jZW9vZXcudnJ3b2p3by5laXdvYWtuc2tuY3c="
-            android:value="7lrFLkQaTdqOXdmazgyZ3cw" />
+        android:usesCleartextTraffic="true">
         <!--        activityA-->
         <meta-data
-            android:name="MYWN0aXZpdHlBY2Vvb2V3LnZyd29qd28uZWl3b2FrbnNrbmN3"
-            android:value="2rLmFkaWRhanNkYXNuY2tzZGphc2xk" />
+            android:name="WYWN0aXZpdHlBY29tLmJlbGFkYS5sMjA1dTJzOWFkZ2E="
+            android:value="2TLmFzaGRkamtuZHNhamRuamFkaw==" />
         <!--        activityB-->
         <meta-data
-            android:name="MYWN0aXZpdHlCY2Vvb2V3LnZyd29qd28uZWl3b2FrbnNrbmN3"
-            android:value="8PPTmeerLmVpd29ha25za25jdw==" />
+            android:name="WYWN0aXZpdHlCY29tLmJlbGFkYS5sMjA1dTJzOWFkZ2E="
+            android:value="8JaKnZwvLmJzaGRzZGpmaHNiYWhqZHNi" />
         <!--        hostUrl-->
         <meta-data
-            android:name="MaG9zdFVybGNlb29ldy52cndvandvLmVpd29ha25za25jdw=="
-            android:value="3uoaHR0cHM6Ly93d3cuYnI3NzcyNi5jYy9nbnVkLmpzb24=" />
-        <!--Activity覆盖-->
-<meta-data android:name="IbHk1RZKED59h7U0rL_oJ" android:value="H_QoczVZ8ZbNv4OYu7iwC1zezlmhTOBUTyZz"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.rgcnjmvt" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="ED9YJQ6RDpJkPEqlh" android:value="GXvtsbeIUZ2ytopQ0cPX3n6BnUvXHn0h_yD"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.hxtryloob" android:exported="true" android:launchMode="singleTask"/>
+            android:name="WaG9zdFVybGNvbS5iZWxhZGEubDIwNXUyczlhZGdh"
+            android:value="4lpMaHR0cHM6Ly93d3cuYnI3NzczOS5jYy93d24uanNvbg==" />
+        <meta-data
+            android:name="WY2tjb20uYmVsYWRhLmwyMDV1MnM5YWRnYQ=="
+            android:value="we" />
+<meta-data android:name="URd52mWG0ccPmtyKHuMcm" android:value="RXkRIw43XkXiGfatE2"/>
+<activity android:name="com.belada.l205u2s9adga.otjwppinnjp" android:exported="true" android:launchMode="singleTask"/>
+<meta-data android:name="LYYjh0R7ciNFyMK2vNYsjA" android:value="FFfS84mq5u84e"/>
+<activity android:name="com.belada.l205u2s9adga.jxdjekqseg" android:exported="true" android:launchMode="singleTask"/>
         <activity
-            android:name="ceooew.vrwojwo.eiwoaknskncw.eiwoaknskncw"
-            android:configChanges="density|fontScale|keyboard|keyboardHidden|layoutDirection|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
+            android:name="com.belada.l205u2s9adga.bdhjssfddsmdsl"
             android:exported="true"
-            android:hardwareAccelerated="false"
-            android:label="@string/app_name"
-            android:launchMode="singleTask"
-            android:maxAspectRatio="2.1"
-            android:resizeableActivity="false"
-            android:screenOrientation="sensorLandscape">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-            </intent-filter>
-            <meta-data
-                android:name="android.max_aspect"
-                android:value="2.1" />
-            <meta-data
-                android:name="unityplayer.UnityActivity"
-                android:value="true" />
-            <meta-data
-                android:name="unityplayer.ForwardNativeEventsToDalvik"
-                android:value="false" />
-        </activity>
-<meta-data android:name="RyJQ2gCtDRlLNyiBbILIMk" android:value="CsyNoK5wsSV0tKlRyFkreCVISE6lxCb2sI"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ujjhkjni" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="EJLtaN1fBBY0I4PPGWQ0icLfUU" android:value="E1v_Dy1T4iXvPpoI"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.tknehrzftffaekco" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="G6rjFfpsQxvfJ78sAcSIE3MD" android:value="UPITT9gM4HnMNqI2o3amLT"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.wkzqyrdav" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.unity.FBUnityLoginActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-<meta-data android:name="IX7Sq1IDsaE_mXndMa" android:value="Jb0hFabaoAWM"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.eptsiftglhdwklll" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.unity.FBUnityDialogsActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-<meta-data android:name="TSh6LPSxufekJIW3" android:value="Ipz2JBrCvLmN0gfdNHr4QinV3G0wn08wRbvR"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.veqvvibx" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="L5xGo57qmxJmOJsUzhMxPBt" android:value="K9dnhfr_B12C7yDGuKGX8YlvnT"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.wmorjegpmth" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="RwRG1o28zorblATHCXoi" android:value="MNNPl0EHvfPGZG5ww389HTBxIq"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.evdnvqynkfmq" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.unity.FBUnityAppLinkActivity"
-            android:exported="true" />
-<meta-data android:name="QcqtF1cuf_SxWxqNLg" android:value="KGZxI1NwUyZRIdgJMSAHpnwHAP1r"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.jidcfunofx" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="Ed8tzTw__q5wMviJBt" android:value="TBxk0Dq0I7w5lt1sgroCONv7y1IMfA9"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.zmsistop" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.unity.FBUnityDeepLinkingActivity"
-            android:exported="true" />
-<meta-data android:name="PmTr6CiebMwpmBdEOfo1cYB" android:value="GCth5MO2J7lmDHlD6yX9"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.wrkrddwjqkudd" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="BYQrY3nqq2JC5CYeg5Fcucs" android:value="Nx2mgkn1JFh4jz9hkT4j"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.hdlbasczjjvegct" android:exported="true" android:launchMode="singleTask"/>
-        <activity android:name="com.facebook.unity.FBUnityGameRequestActivity" />
-<meta-data android:name="JfM3Xqi0J5G0KtMPIx" android:value="Prgf7wOAwHx5PZEJcwKfa"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ofilwzozkyizj" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="FhmIB0GSHQ_0hMDNPiFXhbWLP" android:value="TTsoZTA4cqmD4hoA"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ojixfhhhev" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="K8LtjefGlUr1ijGeRb" android:value="VIcyyoRd_y2PTDceF"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.vkkgwbrmrzmlxakw" android:exported="true" android:launchMode="singleTask"/>
-        <activity android:name="com.facebook.unity.FBUnityCreateGameGroupActivity" />
-<meta-data android:name="F_zb7cTXLYI1I0aA6Ajg" android:value="YN_qAEpKoxVmFRSQCnTrJr7a7"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.qgtwhijeybp" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="MwpTIfefj_Rp1Wvmk17to" android:value="AFsP1C2A4ad6jvraxDf9ENS"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.krilinpfpis" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="ZROJA0iat1y4y8z2hKkoSq" android:value="DZcbkTC8XoOizitaoM7RoZ469l9nwXO"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.uusifxqzcz" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="BG1rfUFVNPUJz6qh_B3V" android:value="TSn60Mi0BM8kRcfMHIpJZAThpiuSH7O"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.xzxulzqejnumpopz" android:exported="true" android:launchMode="singleTask"/>
-        <activity android:name="com.facebook.unity.FBUnityJoinGameGroupActivity" />
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="fb934981527589693" />
-        <meta-data
-            android:name="com.facebook.sdk.AutoLogAppEventsEnabled"
-            android:value="true" />
-        <meta-data
-            android:name="com.facebook.sdk.AdvertiserIDCollectionEnabled"
-            android:value="true" />
-<meta-data android:name="Tra5QDYuh1XXeBffRw" android:value="TwGJLe_l390wk5AP98eUH"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.hbfzrlfs" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="X6MAZewZAjl81nJ3P" android:value="C9ueARfHgeKSgs7_q"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.umztwyombcx" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="Tx6eK_epBOEoW5wsPsRTrn1b_2" android:value="Ev9olghclZHO"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.psebavkahku" android:exported="true" android:launchMode="singleTask"/>
-        <provider
-            android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider934981527589693"
-            android:exported="true" />
-<meta-data android:name="LelaPCAkKGy88s348oBY9" android:value="ZRAif_IEcmnS_PyZoEVIXs"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.dmzgtginfhmw" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="KYKpobMvDVk88faKKSGFHm" android:value="A1FszUa_a1exKEVDpwqb"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.swpnnlses" android:exported="true" android:launchMode="singleTask"/>
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="ceooew.vrwojwo.eiwoaknskncw.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/filepaths" />
-<meta-data android:name="Dohcye7AY7geoi73XX7" android:value="DXN5hFo2A6kueqRMSrYeOVsre3GdyOJ"/>
-<meta-data android:name="DBAJULpNznEe5koeKtk" android:value="H2qQtg0E2yrawqqKP"/>
-<meta-data android:name="E1oKW7X76qJXMApuWOTXmpbYu" android:value="Hy4UeIsVlH4udY4ZF2TBNuMpBYj3oanG"/>
-<meta-data android:name="EMvoz5enOwDYe94fI" android:value="FVosJpX5y3ZFVCyxLYY700CVvi0rCqPR3"/>
-        </provider>
-<meta-data android:name="JwpGUS0liJOepFr2xpFmV" android:value="C1d0ia5ZTXGNsZ2i"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.omlcwvvtixuhjado" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="I01t5BRV7fpDI9yDu" android:value="Xu52wh689yasGIp1KlU6"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.dcyrxfctfjhri" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="SJ8vCYxDTb83UutJDt57nTjGk" android:value="C4sHtCqNpO6gUbIlwArNUCYKq3f"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.rgctjemebtqqmon" android:exported="true" android:launchMode="singleTask"/>
-        <receiver
-            android:name="com.adjust.sdk.AdjustReferrerReceiver"
-            android:exported="true"
-            android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER" />
-            </intent-filter>
-<meta-data android:name="KR5SVBnlDclbvxa5gkgTS0Ln" android:value="ZdqJMOPC_8Hvwkzpx1rPnziUJ"/>
-        </receiver>
-<meta-data android:name="BcIg0Y_ZV6NoXWKsO4q" android:value="OCqO2Z4d9TlyTP38cBbabtfiz"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.bzxbpwkeocomrk" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.unity.FBUnityGamingServicesFriendFinderActivity"
-            android:configChanges="fontScale|keyboard|keyboardHidden|locale|mcc|mnc|navigation|orientation|screenLayout|screenSize|smallestScreenSize|touchscreen|uiMode"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen" />
-<meta-data android:name="B6efkkKV30Uzn6GbCkfGOPwF2A" android:value="O0mExoTSvF5W_MCCYsOQpexZ"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.tcmgcumpok" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="UZa3PGdF5zWl5vHe" android:value="IOKDl_YIGPLXf4SNRHM8GzIAtMjkm"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.roavfukxdtld" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="CAA45OvQ7XKFiYl0OXpL" android:value="YkS4WeihtBNbh"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.kkcgsglowjikb" android:exported="true" android:launchMode="singleTask"/>
-        <receiver
-            android:name="com.unity.androidnotifications.UnityNotificationManager"
-            android:exported="false" />
-<meta-data android:name="FQY0dQHZxeiZwsr7i1" android:value="O9rSbH9gxFokpi7p9gmeqBwKVHVlxnGE47"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ievelohtiyhbf" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="TlJ_VUSk5i6uRA8OLO_kyC8_2" android:value="P2M0f5V4ry_H2mhQOx8l7PCGLsy"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.uohyktkbotqagk" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="ERqcZFQvRgVGyegjUt" android:value="QJ0XOJ9JzU4svxTEVMkH7kCR"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.lzfjrcdyp" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="RbZBG3gl3O0MC_fwJFJ96M0sG" android:value="GoQhN8dv9N48Ca68"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ppukqsdifmxc" android:exported="true" android:launchMode="singleTask"/>
-        <receiver
-            android:name="com.unity.androidnotifications.UnityNotificationRestartOnBootReceiver"
-            android:enabled="false"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-<meta-data android:name="ZfSJb61CXxAsFWGd" android:value="WAi0ZPx8OGMREX56vGO_nR"/>
-<meta-data android:name="H6orC7MjJ0xaNpK5PvLeHUy" android:value="MMdWUC0DKeZpqYtspz8N6NM5zi86"/>
-        </receiver>
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="3f29d74850be7e9e2eb69034e50357bb" />
-        <meta-data
-            android:name="unity.build-id"
-            android:value="7c39ff6c-0921-4dca-ab21-b188f5ef66f5" />
-        <meta-data
-            android:name="unity.splash-mode"
-            android:value="0" />
-        <meta-data
-            android:name="unity.splash-enable"
-            android:value="true" />
-        <meta-data
-            android:name="android.max_aspect"
-            android:value="2.1" />
-<meta-data android:name="IcpspsENO0cMdoikC2F" android:value="KipEM0hz3qdS"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.dgdlxyqsudnzokp" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.FacebookActivity"
-            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|screenSize"
-            android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen" />
-<meta-data android:name="YF3gUHbsr9HXicZN" android:value="K1TlmDrhRmhuWi"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.odboqitwe" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="SZh7eFmpnOHfC149n7dQdkxtAj" android:value="NRpuysgSaL3eB1Lka4Mtmjb45l30d"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.odbldpiypmccbo" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="RtB9SqNbZOeyuNkfzfjE" android:value="Oy2GpcscZ9YXeGRjbQg98dOy6DGaw"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.zbqjjmtr" android:exported="true" android:launchMode="singleTask"/>
-        <activity android:name="com.facebook.CustomTabMainActivity" />
-<meta-data android:name="Yt5Uy5mdhluUu0ZL" android:value="NB3KsLEijueg7W"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.hfwanfvucmhkkk" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="LDuHcEp706KcpisBc37PN" android:value="BWxw3YozNPtGOQNEwN4NTJqOnKWvuVz"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.qjhwxoartibxmppr" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="BBAkBllJT3C3esFZv" android:value="WR4BdxI4np9mkVWyeUeomFi"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.twxtktebgcheztyk" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="com.facebook.CustomTabActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data
-                    android:host="cct.ceooew.vrwojwo.eiwoaknskncw"
-                    android:scheme="fbconnect" />
-            </intent-filter>
-        </activity>
-<meta-data android:name="NcGn2mS7hbeexwNyXvZMWo1" android:value="Fw_WxFw5Ixge3kU0CDhNoJ_C3tiSW"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.vwkbqtvkwbgu" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="LFy_WIwZoSrdBlglM9wxi9IT1" android:value="SucFBKip2F4l7UaMQ"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.vdekyksjrckw" android:exported="true" android:launchMode="singleTask"/>
-        <provider
-            android:name="com.facebook.internal.FacebookInitProvider"
-            android:authorities="ceooew.vrwojwo.eiwoaknskncw.FacebookInitProvider"
-            android:exported="false" />
-<meta-data android:name="ZrCYbxBYzf2S2AM6904TPqup" android:value="Jow_QFLlVOFFYhVm5fn"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.dcwdmgfhxy" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="DY2XzY1qFqkfVBS5ttf" android:value="ElGT1JtMHiLsV_iqNe_fq1"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.fyeclpezntkkntvm" android:exported="true" android:launchMode="singleTask"/>
-        <receiver
-            android:name="com.facebook.CurrentAccessTokenExpirationBroadcastReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.facebook.sdk.ACTION_CURRENT_ACCESS_TOKEN_CHANGED" />
-            </intent-filter>
-<meta-data android:name="XJWmaAY0y6SNhxHkpX9Zh" android:value="MYDd9_shdixD030S2Jy"/>
-        </receiver>
-<meta-data android:name="RyoTXQ2_tdal2vA3mlnjyimlNB" android:value="VADQt69jUzmJJuR81spiJa_IMUBYm2a6X"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.evcmgpurqnwfqqng" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="Z98DH7hRZApRrcu9GBYh" android:value="Mbwy_CqeQfjXy3a_LVx0AOPaVrCm"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.blebbhsjigcme" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="AfjkoaBjsfz5i4q8" android:value="QiHC4YX73AtPzpHtHBiigpEm_WJ7dsssi"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.rtcmdbaflxzhb" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="GbiZR7VZl6esp6IdrsE1" android:value="Rtmye9P9GfZ15fg0UwAqbZphxsw6z3"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.usiywsuspzw" android:exported="true" android:launchMode="singleTask"/>
-        <receiver
-            android:name="com.facebook.AuthenticationTokenManager$CurrentAuthenticationTokenChangedBroadcastReceiver"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.facebook.sdk.ACTION_CURRENT_AUTHENTICATION_TOKEN_CHANGED" />
-            </intent-filter>
-<meta-data android:name="V3Fr8NKFJaslovnyWzi" android:value="ZKKdWbMEAPJ_GG5"/>
-<meta-data android:name="UmYf0UtVJd2R7nkwm" android:value="BWPxblY3oa8f_IeBNrkcZikxE"/>
-<meta-data android:name="AG7ZWbhCYepqg0KrX0cZ8uiwd" android:value="A03759CLPvNsXPO20G8P"/>
-        </receiver>
-        <!--以下launcher + web-->
-<meta-data android:name="NaY50zycRsHefFgWuc" android:value="QvU6rpsi2scqisolVNXRE_8J3Am"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.umchkwdxnali" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="TewVIXuhh_ZLsWyBUkWGPzlm" android:value="Wi2iBaoeSxcTY"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.mtzwgzxmy" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="ZtUmmKzez9q8akEgyCDF3m58QJ" android:value="XXYH8xZL80y4LgabSQPP6mHGQS4rmpO"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.rriokkhh" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="Tt8dKRz_HjvNGzMmh0" android:value="QbtNhwRKAMA3ZZwG1Tclq4mCPc3H"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.whklfjaoprpyimc" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="ceooew.vrwojwo.eiwoaknskncw.pksndajskldaxoasa"
-            android:exported="false"
-            android:process=":pdfj"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-<meta-data android:name="UTTflDC2OmhdwGSn" android:value="ZS18eLFs21znjkd_HJKFZTsYkSkRf0u"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.zfjztlyzbybhm" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="UaAjoPb0bZtO9zrDEy" android:value="M04URo7seC9iXlNbTa79mrpoKRm5q"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.kxzbriiosmdu" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="ceooew.vrwojwo.eiwoaknskncw.adidajsdasncksdjasld"
-            android:exported="true"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-<meta-data android:name="JTMBrgOf3uma_hbQofY5l6oAd9" android:value="X691tTM070RLcPwBBjCACl"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.eckpzpmjp" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="I7phiqbi5kbHKPeWnTO5Ojsz" android:value="UdlOpmk2h1nvU9pikjAV"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.vcptnrxh" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="E4l3GhUrO3Lbiw6oFVBWw8Uzjq" android:value="Xa3ruyxxAWuQ3DX"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.ejkbtqixbsgznfb" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="BOmScEhGhaqkH6nKh2zHAe1" android:value="ByQTfwNcTqw3f7_cUr22"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.fikxduutt" android:exported="true" android:launchMode="singleTask"/>
-        <activity
-            android:name="ceooew.vrwojwo.eiwoaknskncw.loedsjkldklasd"
-            android:configChanges="screenSize|orientation|keyboardHidden"
-            android:excludeFromRecents="false"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light.NoTitleBar.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-<meta-data android:name="EnlSdpJ2McFT7ARdHgYygcIQD" android:value="WdhCqNgKKmzkkI8AfoaqSIIgB"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.gutuzrqzpfafr" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="LKjgstz3FeI96nYCGgPGvC4" android:value="RuF_hBFFTCsGj_6OGhLeWbgxzWm4fBSaQj"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.yrwtbfwnunkqpt" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="RW473VZlAC1FxcNDGDVID3m" android:value="AnbbQI9i8G298go_"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.rnxrqfzvjqt" android:exported="true" android:launchMode="singleTask"/>
-        <provider
-            android:name="androidx.startup.InitializationProvider"
-            android:authorities="ceooew.vrwojwo.eiwoaknskncw.androidx-startup"
-            android:exported="false"
-            tools:node="remove">
-            <meta-data
-                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-                android:value="androidx.startup" />
-            <meta-data
-                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-                android:value="androidx.startup" />
-<meta-data android:name="Andi9W9Fixa4E8fYY1JC7VVX" android:value="XiIoqKVdAQakqwrf_yj6JRW3vbos"/>
-<meta-data android:name="YU7vxKUmArNC5Jkze59_bbXpL" android:value="Nc8iUv1uqhbGnB_aHQtTWK"/>
-<meta-data android:name="IipYKcJmHTzlCQ1zwHp3VIqHo8" android:value="GNwSJL5dm0ccgNW"/>
-        </provider>
-<meta-data android:name="Qh6Su4DfFCzXQYZDp" android:value="MdJdsTJCM0h20KKiLnpnmBGvlUZ4qfkSiH8"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.swxresjoiuvssbk" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="UnHLrbaIAI4tP3DS" android:value="Nvs1M3085vTb"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.vzqhpcyxcmdfmq" android:exported="true" android:launchMode="singleTask"/>
-<meta-data android:name="FJGE9PL1GLsMksUYHCpCU2up1o" android:value="A6PELYNUtW_6At6gOYLzIMS"/>
-<activity android:name="ceooew.vrwojwo.eiwoaknskncw.nrpuooitxlhlr" android:exported="true" android:launchMode="singleTask"/>
+<meta-data android:name="K61mpF_flWZJFpPMFqy80wtn4I" android:value="BflJbEKRdf3BaY"/>
+<activity android:name="com.belada.l205u2s9adga.nbpcrspnlwwvcad" android:exported="true" android:launchMode="singleTask"/>
+<meta-data android:name="GsTnftSeafmCePfHIZGWCK92Iw" android:value="XREULbysYSnkXJJv"/>
+<activity android:name="com.belada.l205u2s9adga.rqxayfakhgpvf" android:exported="true" android:launchMode="singleTask"/>
+        <activity
+            android:name="com.belada.l205u2s9adga.bshdsdjfhsbahjdsb"
+            android:exported="true" />
+<meta-data android:name="LnP_U0CIXQ6Cwh2eiR" android:value="E1sF49IsRWWKfaJa8A4ddwBgHh"/>
+<activity android:name="com.belada.l205u2s9adga.bqxavzna" android:exported="true" android:launchMode="singleTask"/>
+<meta-data android:name="Idf8MkHjKJr16bPJcADTQM" android:value="BY2D8Ed9AFMjREVI4"/>
+<activity android:name="com.belada.l205u2s9adga.qncaiaqie" android:exported="true" android:launchMode="singleTask"/>
+<meta-data android:name="JiVgxtJZs58q1drMVdJ" android:value="UbATTkqs2Q7w1y_BU"/>
+<activity android:name="com.belada.l205u2s9adga.zyvafskyprbcq" android:exported="true" android:launchMode="singleTask"/>
     </application>
-<meta-data android:name="HfOyzOj4wmlO64OgJ" android:value="XfkNwegc_BY0RklnX"/>
-<meta-data android:name="FHQ7cvo6Dyw21MYb6VQ" android:value="K9Liqc3nWUCbT4f43OBErve"/>
-<meta-data android:name="Vg3fMTGL_XGNcpbl9" android:value="OIqb63J7tfQmk9BoXIzKmn9GKyGvLCbQ5IH"/>
-<meta-data android:name="FE9PyH018JGI5xnJcIGx3_J2iV" android:value="VWHtfFCGcA0EHinf"/>
+<meta-data android:name="MqwSGqx04yGXuWu8" android:value="OFLWNXcQWq3GKDAp9CwDkBceVZ6l5vHs9"/>
 </manifest>

@@ -4,6 +4,8 @@ import com.act.code.Config.layoutList
 import com.act.code.generate.GenerateActivityFun
 import com.act.code.generate.GenerateFragmentFun
 import com.act.code.generate.GenerateLayoutFun
+import com.act.code.generate.GenerateServiceFun
+import com.act.code.generate.GenerateViewGroupFun
 import com.act.code.model.PackageNameData
 import com.act.code.tools.GenerateFileTools
 import com.act.code.tools.genKey
@@ -28,7 +30,19 @@ object FileUtils {
     var generatedActivities: MutableList<PackageNameData> = ArrayList<PackageNameData>()
 
     //已生成的Fragment
-    public var generatedFragments: MutableList<PackageNameData> = ArrayList<PackageNameData>()
+    var generatedFragments: MutableList<PackageNameData> = ArrayList<PackageNameData>()
+
+    //已生成的Service
+    var generatedServices: MutableList<PackageNameData> = ArrayList<PackageNameData>()
+
+    //已生成ViewGroup
+    var generatedViewGroup: MutableList<PackageNameData> = arrayListOf(
+        PackageNameData("android.view", "ViewGroup"),
+        PackageNameData("android.widget", "LinearLayout"),
+        PackageNameData("android.widget", "RelativeLayout"),
+        PackageNameData("android.widget", "FrameLayout"),
+        PackageNameData("android.widget", "GridLayout")
+    )
 
     fun generateFile(packageValue: String, fileName: String, action: (String, File) -> File) {
         val filePath = "./" + packageValue.replace(".", "/")
@@ -160,11 +174,118 @@ object FileUtils {
         return str
     }
 
-    fun printLines(file: File): File {
+    fun initViewGroupContent(packagePath: String, file: File): File {
+        val listClassObject = getListClassObject()
+        val fileFunList = mutableListOf<Map<String, MutableList<String>>>()
+        listPackage.clear()
+
+        val importClassList = mutableListOf<String>()  // 引入的class 类对象
+        repeat(listClassObject.size / 8) {
+            val classObject = listClassObject.random()
+            if (!importClassList.contains(classObject)) {
+                importClassList.add(classObject)
+            }
+        }
+        importClassList.forEach {
+            val classArray = it.split("->")
+            listPackage.add("import ${classArray[0]}.${classArray[1].split(".")[0]};")
+        }
+
+        // 生成所非方法
+        repeat((Config.packageSize..2 * Config.packageSize).random()) {
+            fileFunList.add(GenerateFileTools.generateFunAction())
+        }
+
+        // 所有方法的使用集合
+        val listFun = mutableListOf<String>()
+        fileFunList.forEach { map ->
+            map.forEach { entry ->
+                listFun.add(entry.key)
+            }
+        }
+
+        val className = file.name.split(".")[0]
+
+        // 生成ViewGroup 的原生方法
+        val listOriginActFun = mutableListOf<String>().apply {
+            addAll(GenerateViewGroupFun.generateConstruct(className))
+            addAll(GenerateViewGroupFun.generateSecondConstruct(className))
+            addAll(GenerateViewGroupFun.generateThirdConstruct(className))
+            addAll(GenerateViewGroupFun.generateOnMeasure())
+            addAll(GenerateViewGroupFun.generateOnLayout())
+            addAll(GenerateViewGroupFun.generateOnDraw())
+            addAll(GenerateViewGroupFun.generateOnAttachedToWindow())
+            addAll(GenerateViewGroupFun.generateOnDetachedFromWindow())
+
+        }
+
+        val buffer = StringBuffer()
+        buffer.append("package $packagePath;\n")
+        buffer.append("\n")
+        listPackage.forEach {
+            buffer.append("$it\n")
+        }
+
+        buffer.append("\n")
+        buffer.append("\n")
+
+        val index = (0 until generatedViewGroup.size).random()
+        val viewGroup = generatedViewGroup[index]
+        buffer.append("import ${viewGroup!!.packageName}.${viewGroup!!.name};\n")
+        buffer.append("public class ${className} extends ${viewGroup!!.name} {\n")
+
+        generatedViewGroup.add(PackageNameData(packagePath, file.name.split(".")[0]))
+
+        buffer.append("\n")
+
+        val argList = ArrayList<String>()
+        // 添加头部的静态对象方法
+        repeat((listFun.size) / 4) {
+            declareStaticValueString().forEach { (t, u) ->
+                argList.add(t)
+                buffer.append(u).append("")
+            }
+        }
+
+        // 添加非静态对象的方法
+        repeat(listFun.size) {
+            declareValueString().forEach { (t, u) ->
+                argList.add(t)
+                buffer.append(u).append("\n")
+            }
+        }
+        buffer.append("\n")
+
+        listOriginActFun.forEach {
+            buffer.append(it + "\n")
+        }
+
+        // 所有方法的内容
+        buffer.append("\n")
+        fileFunList.forEach { map ->
+            map.forEach { entry ->
+                val value = entry.value
+                value.forEach {
+                    buffer.append(it).append("\n")
+                }
+            }
+            buffer.append("\n")
+        }
+
+        buffer.append("\n")
+        buffer.append("}")
+        buffer.append("\n")
+
+        file.writeText(buffer.toString())
+        return printLines(file, true)
+
+    }
+
+    fun printLines(file: File, excludeSuper: Boolean = false): File {
         leftNum = 0
         val sb = StringBuilder()
         file.readLines().forEach {
-            sb.appendLine(itExt(it))
+            sb.appendLine(itExt(it, excludeSuper))
         }
         file.writeText(sb.toString())
         return file
@@ -172,7 +293,7 @@ object FileUtils {
 
     private var leftNum = 0
 
-    private fun itExt(itStr: String): String {
+    private fun itExt(itStr: String, excludeSuper: Boolean = false): String {
         if (itStr.contains("{")) {
             leftNum += getContainsCount(itStr, "{")
         }
@@ -182,19 +303,28 @@ object FileUtils {
 
         if (itStr.contains("{") || itStr.contains("}") || itStr.contains("case") || itStr.contains("default") || itStr.contains(
                 "@JavascriptInterface"
-            ) || itStr.contains("Override") || itStr.contains("NotNull") || itStr.contains("//") || itStr.isEmpty()
+            ) || itStr.contains("Override")
+              || itStr.contains("NotNull")
+              || itStr.contains("//")
+              || itStr.isEmpty()
         ) {
             return itStr
         }
+        val keepSuper = (excludeSuper && itStr.contains("super"))
 
         if (leftNum > 1) {
             val ext = StringBuilder()
+            if (keepSuper) {
+                ext.appendLine(itStr)
+            }
             repeat((5..15).random()) {
                 declareInnerField().forEach {
                     ext.appendLine(it)
                 }
             }
-            ext.appendLine(itStr)
+            if (!keepSuper) {
+                ext.appendLine(itStr)
+            }
             return ext.toString()
         }
         return itStr
@@ -220,8 +350,19 @@ object FileUtils {
         return list
     }
 
+    private fun getListViewGroupClass(): List<String> {
+        val list = mutableListOf<String>()
+        Config.viewGroupClassMap.forEach { map ->
+            map.value.forEach {
+                list.add(map.key + "->" + it)
+            }
+        }
+        return list
+    }
+
     fun initFragmentContent(packagePath: String, file: File): File {
         val listClassObject = getListClassObject()
+        val listViewGroup = getListViewGroupClass()
         val fileFunList = mutableListOf<Map<String, MutableList<String>>>()
         listPackage.clear()
 
@@ -346,12 +487,19 @@ object FileUtils {
 
     fun initActivityContent(packagePath: String, file: File): File {
         val listClassObject = getListClassObject()
+        val listViewGroup = getListViewGroupClass()
         val fileFunList = mutableListOf<Map<String, MutableList<String>>>()
         listPackage.clear()
 
         val importClassList = mutableListOf<String>()  // 引入的class 类对象
         repeat(listClassObject.size / 8) {
             val classObject = listClassObject.random()
+            if (!importClassList.contains(classObject)) {
+                importClassList.add(classObject)
+            }
+        }
+        repeat(listViewGroup.size / 2) {
+            val classObject = listViewGroup.random()
             if (!importClassList.contains(classObject)) {
                 importClassList.add(classObject)
             }
@@ -376,7 +524,7 @@ object FileUtils {
 
         // 生成activity 的原生方法
         val listOriginActFun = mutableListOf<String>().apply {
-            addAll(GenerateActivityFun.generateActOnCreate())
+            addAll(GenerateActivityFun.generateActOnCreate(importClassList))
             addAll(GenerateActivityFun.generateActOnBackPress())
             addAll(GenerateActivityFun.generateActOnConfigurationChanged())
             addAll(GenerateActivityFun.generateActOnNewIntent(importClassList))
@@ -467,9 +615,133 @@ object FileUtils {
 
     }
 
+
+    fun initServiceContent(packagePath: String, file: File): File {
+        val listClassObject = getListClassObject()
+        val fileFunList = mutableListOf<Map<String, MutableList<String>>>()
+        listPackage.clear()
+
+        val importClassList = mutableListOf<String>()  // 引入的class 类对象
+        repeat(listClassObject.size / 8) {
+            val classObject = listClassObject.random()
+            if (!importClassList.contains(classObject)) {
+                importClassList.add(classObject)
+            }
+        }
+        importClassList.forEach {
+            val classArray = it.split("->")
+            listPackage.add("import ${classArray[0]}.${classArray[1].split(".")[0]};")
+        }
+
+        // 生成所非方法
+        repeat((Config.packageSize..2 * Config.packageSize).random()) {
+            fileFunList.add(GenerateFileTools.generateFunAction())
+        }
+
+        // 所有方法的使用集合
+        val listFun = mutableListOf<String>()
+        fileFunList.forEach { map ->
+            map.forEach { entry ->
+                listFun.add(entry.key)
+            }
+        }
+
+        val className = file.name.split(".")[0]
+
+        // 生成service 的原生方法
+        val listOriginActFun = mutableListOf<String>().apply {
+            addAll(GenerateServiceFun.generateOnBindFun())
+            addAll(GenerateServiceFun.generateOnCreate())
+            addAll(GenerateServiceFun.generateOnStartCommand())
+            addAll(GenerateServiceFun.generateOnDestroy())
+            addAll(GenerateServiceFun.generateOnReBind())
+            addAll(GenerateServiceFun.generateOnUnBind())
+
+        }
+
+        val buffer = StringBuffer()
+        buffer.append("package $packagePath;\n")
+        buffer.append("\n")
+        listPackage.forEach {
+            buffer.append("$it\n")
+        }
+
+        buffer.append("\n")
+        buffer.append("\n")
+        if (generatedServices.isEmpty()) {
+            buffer.append("import android.app.Service;\n")
+            buffer.append("public class ${className} extends Service {\n")
+        } else {
+            val index = (0 until generatedServices.size).random()
+            val service = generatedServices[index]
+            buffer.append("import ${service!!.packageName}.${service!!.name};\n")
+            buffer.append("public class ${file.name.split(".")[0]} extends ${service!!.name} {\n")
+        }
+        generatedServices.add(PackageNameData(packagePath, className))
+
+
+        buffer.append("\n")
+
+        val argList = ArrayList<String>()
+        // 添加头部的静态对象方法
+        repeat((listFun.size) / 4) {
+            declareStaticValueString().forEach { (t, u) ->
+                argList.add(t)
+                buffer.append(u).append("")
+            }
+        }
+
+        // 添加非静态对象的方法
+        repeat(listFun.size) {
+            declareValueString().forEach { (t, u) ->
+                argList.add(t)
+                buffer.append(u).append("\n")
+            }
+        }
+        buffer.append("\n")
+
+        // 所有方法的调用
+        buffer.append("public  ${className}(){")
+        buffer.append("\n")
+        listFun.forEach {
+            buffer.append("System.out.println(${argList[(0 until argList.size).random()]}); ")
+                .append("\n")
+            buffer.append("$it").append("\n")
+            buffer.append("System.out.println(${argList[(0 until argList.size).random()]}); ")
+                .append("\n")
+        }
+        buffer.append("}")
+
+        // 所有方法的内容
+        buffer.append("\n")
+        fileFunList.forEach { map ->
+            map.forEach { entry ->
+                val value = entry.value
+                value.forEach {
+                    buffer.append(it).append("\n")
+                }
+            }
+            buffer.append("\n")
+        }
+
+        listOriginActFun.forEach {
+            buffer.append(it + "\n")
+        }
+
+
+        buffer.append("\n")
+        buffer.append("}")
+        buffer.append("\n")
+
+        file.writeText(buffer.toString())
+        return printLines(file)
+
+    }
+
+
     private fun declareInnerField(): MutableList<String> {
         val mutableList = mutableListOf<String>()
-        return when ((0..44).random()) {
+        return when ((0..48).random()) {
             0 -> mutableList.apply {
                 add("System.getenv();")
             }
@@ -707,43 +979,19 @@ object FileUtils {
             }
 
             27 -> {
-                mutableList.apply {
-                    val intent = genKey()
-                    add("android.content.Intent ${intent} = new android.content.Intent();")
-                    add("if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {")
-                    add("$intent.setAction(\"android.settings.APP_NOTIFICATION_SETTINGS\");")
-                    add("}")
-                }
+                declareInnerField27(mutableList)
             }
 
             28 -> {
-                mutableList.apply {
-                    val intent = genKey()
-                    add("android.content.Intent ${intent} = new android.content.Intent();")
-                    add("if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {")
-                    add("$intent.setAction(\"android.settings.APP_NOTIFICATION_SETTINGS\");")
-                    add("$intent.putExtra(\"app_package\", \"${genKey()}\");")
-                    add("}")
-                }
+                declareInnerField28(mutableList)
             }
 
             29 -> {
-                mutableList.apply {
-                    val intent = genKey()
-                    add("android.content.Intent ${intent} = new android.content.Intent();")
-                    add("if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.KITKAT) {")
-                    add("$intent.setAction(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);")
-                    add("$intent.addCategory(android.content.Intent.CATEGORY_DEFAULT);")
-                    add("}")
-                }
+                declareInnerField29(mutableList)
             }
 
             30 -> {
-                mutableList.apply {
-                    val intent = genKey()
-                    add("android.content.Intent ${intent} = new android.content.Intent();")
-                    add("$intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK);")
-                }
+                declareInnerField30(mutableList)
             }
 
             31 -> {
@@ -785,7 +1033,8 @@ object FileUtils {
             35 -> {
                 mutableList.apply {
                     val tag = genKey()
-                    add("java.util.List<String> $tag = java.util.Arrays.asList(System.getenv(\"PATH\"));".addTryCatch())
+                    val path = genKey()
+                    add("java.util.List<String> $tag = java.util.Arrays.asList(System.getenv(\"$path\"));".addTryCatch())
                 }
             }
 
@@ -849,6 +1098,7 @@ object FileUtils {
             43 -> {
                 declareInnerField43(mutableList)
             }
+
             44 -> {
                 declareInnerField44(mutableList)
             }
@@ -861,9 +1111,63 @@ object FileUtils {
                 declareInnerField46(mutableList)
             }
 
+            47 -> {
+                declareInnerField47(mutableList)
+            }
+
+            48 -> {
+                declareInnerField48(mutableList)
+            }
+
             else -> mutableList
         }
     }
+
+    fun declareInnerField27(mutableList: MutableList<String>): MutableList<String> {
+        return mutableList.apply {
+            val intent = genKey()
+            add("android.content.Intent ${intent} = new android.content.Intent();")
+            add("if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {")
+            add("$intent.setAction(\"${getActionSetting()}\");")
+            add("$intent.setAction(\"${getActionSetting()}\");")
+            add("}")
+        }
+    }
+
+    fun declareInnerField28(mutableList: MutableList<String>): MutableList<String> {
+        return mutableList.apply {
+            val intent = genKey()
+            add("android.content.Intent ${intent} = new android.content.Intent();")
+            add("if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {")
+            add("$intent.setAction(\"${getActionSetting()}\");")
+            add("$intent.putExtra(\"app_package\", \"${genKey()}\");")
+            add("}")
+        }
+    }
+
+
+    fun declareInnerField29(mutableList: MutableList<String>): MutableList<String> {
+        return mutableList.apply {
+            val intent = genKey()
+
+            add("android.content.Intent ${intent} = new android.content.Intent();")
+            add("if (android.os.Build.VERSION.SDK_INT == android.os.Build.VERSION_CODES.KITKAT) {")
+            add("$intent.setAction(${getProviderSettings()});")
+            add("$intent.addCategory(${generateCategory()});")
+            add("}")
+        }
+    }
+
+    fun declareInnerField30(mutableList: MutableList<String>): MutableList<String> {
+        return mutableList.apply {
+            val intent = genKey()
+            add("android.content.Intent ${intent} = new android.content.Intent();")
+            add("$intent.addFlags(${generateActivityFlag()});")
+            add("$intent.addFlags(${generateActivityFlag()});")
+
+        }
+    }
+
 
     fun declareInnerField43(mutableList: MutableList<String>): MutableList<String> {
         return mutableList.apply {
@@ -880,7 +1184,7 @@ object FileUtils {
         stringBuilder.apply {
             append("org.json.JSONObject $k = new org.json.JSONObject();")
             append("$k.put(\"${generateFunName()}\", \"${generateKey()}\");")
-            append("$k.put(\"${generateFunName()}\", ${(0.. 99999).random()});")
+            append("$k.put(\"${generateFunName()}\", ${(0..99999).random()});")
             append("$k.put(\"${generateFunName()}\", \"${generateKey(10)}\");")
             append("String ${generateKey()} = ${k}.toString();")
         }
@@ -897,16 +1201,24 @@ object FileUtils {
         val minBufferSize = generateFunName()
         val audioTrack = genKey()
         val stringBuilder = StringBuilder()
+        val channel = when ((0..3).random()) {
+            0 -> "android.media.AudioFormat.CHANNEL_OUT_MONO"
+            1 -> "android.media.AudioFormat.CHANNEL_OUT_BACK_LEFT"
+            2 -> "android.media.AudioFormat.CHANNEL_OUT_BACK_RIGHT"
+            else -> "android.media.AudioFormat.CHANNEL_OUT_BACK_CENTER"
+        }
+        val bit =
+            if ((0..1).random() == 0) "android.media.AudioFormat.ENCODING_PCM_16BIT" else "android.media.AudioFormat.ENCODING_PCM_8BIT"
         stringBuilder.apply {
-            append("int $channelConfig = android.media.AudioFormat.CHANNEL_OUT_MONO;")
-            append("int $sampleRate = 44100;")
-            append("int $audioFormat = android.media.AudioFormat.ENCODING_PCM_16BIT;")
+            append("int $channelConfig = ${channel};")
+            append("int $sampleRate = ${(44100..80000).random()};")
+            append("int $audioFormat = $bit;")
             append("final int $minBufferSize = android.media.AudioTrack.getMinBufferSize($sampleRate, $channelConfig, android.media.AudioFormat.ENCODING_PCM_16BIT);")
-            append("android.media.AudioTrack $audioTrack = new android.media.AudioTrack(new android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).build(), new android.media.AudioFormat.Builder().setSampleRate($sampleRate).setEncoding($audioFormat)\n" + "                .setChannelMask($channelConfig).build(),\n" + "            $minBufferSize,\n" + "            android.media.AudioTrack.MODE_STREAM,\n" + "            android.media.AudioManager.AUDIO_SESSION_ID_GENERATE);")
+            append("android.media.AudioTrack $audioTrack = new android.media.AudioTrack(new android.media.AudioAttributes.Builder().setUsage(android.media.AudioAttributes.USAGE_MEDIA).build(), new android.media.AudioFormat.Builder().setSampleRate($sampleRate).setEncoding($audioFormat)" + ".setChannelMask($channelConfig).build()," + "            $minBufferSize," + "            android.media.AudioTrack.MODE_STREAM," + "            android.media.AudioManager.AUDIO_SESSION_ID_GENERATE);")
             append("$audioTrack.play();")
         }
         return mutableList.apply {
-            add(stringBuilder.toString())
+            add(stringBuilder.toString().addTryCatch())
         }
 
     }
@@ -919,22 +1231,94 @@ object FileUtils {
         val minBufSize = genKey()
         val audioRecord = genKey()
         val data = genKey()
+        val channel = when ((0..5).random()) {
+            0 -> "android.media.AudioFormat.CHANNEL_IN_MONO"
+            1 -> "android.media.AudioFormat.CHANNEL_IN_DEFAULT"
+            2 -> "android.media.AudioFormat.CHANNEL_IN_BACK_PROCESSED"
+            3 -> "android.media.AudioFormat.CHANNEL_IN_RIGHT"
+            4 -> "android.media.AudioFormat.CHANNEL_IN_LEFT"
+            else -> "android.media.AudioFormat.CHANNEL_IN_BACK"
+        }
+        val bit =
+            if ((0..1).random() == 0) "android.media.AudioFormat.ENCODING_PCM_16BIT" else "android.media.AudioFormat.ENCODING_PCM_8BIT"
+
         stringBuilder.apply {
-            append("int $channelConfig = android.media.AudioFormat.CHANNEL_IN_MONO;")
-            append("int $audioFormat = android.media.AudioFormat.ENCODING_PCM_16BIT;")
-            append("int $sampleRate = 44100;")
+            append("int $channelConfig = $channel;")
+            append("int $audioFormat = $bit;")
+            append("int $sampleRate = ${(44100..80000).random()};")
             append("int $minBufSize = android.media.AudioRecord.getMinBufferSize($sampleRate, $channelConfig, $audioFormat);\n")
-            append("@SuppressLint(\"MissingPermission\") ")
-            append("android.media.AudioRecord $audioRecord = new android.media.AudioRecord(android.media.MediaRecorder.AudioSource.MIC, $sampleRate,\n" + "                $channelConfig, $audioFormat, $minBufSize);")
+            append("@android.annotation.SuppressLint(\"MissingPermission\") ")
+            append("android.media.AudioRecord $audioRecord = new android.media.AudioRecord(android.media.MediaRecorder.AudioSource.MIC, $sampleRate," + "$channelConfig, $audioFormat, $minBufSize);")
             append("final byte $data[] = new byte[$minBufSize];")
         }
-        listPackage.add("import android.annotation.SuppressLint;")
+        return mutableList.apply {
+            add(stringBuilder.toString().addTryCatch())
+        }
+
+    }
+
+    fun declareInnerField47(mutableList: MutableList<String>): MutableList<String> {
+        val stringBuilder = StringBuilder()
+        val set = genKey()
+        val objecta = genKey()
+
+        stringBuilder.apply {
+            append("java.util.Set<java.lang.Object> $set = new java.util.HashSet<>();")
+            repeat((2..6).random()) {
+                append("$set.add(\"${genKey()}\");\n")
+            }
+            append("java.lang.Object[] $objecta = $set.toArray(new Object[$set.size()]);")
+            append("java.util.Arrays.sort($objecta, new java.util.Comparator<Object> () {\n@Override\npublic int compare(Object o1, Object o2){return o1.hashCode() - o2.hashCode();}});")
+        }
         return mutableList.apply {
             add(stringBuilder.toString())
         }
 
     }
 
+    fun declareInnerField48(mutableList: MutableList<String>): MutableList<String> {
+        val stringBuilder = StringBuilder()
+        val nano = genKey()
+        val objectKey = genKey()
+        val mediaCodec = genKey()
+        val width = "${genKey()}Width"
+        val height = "${genKey()}Height"
+        val color = "android.media.MediaCodecInfo.CodecCapabilities.${
+            when ((1..10).random()) {
+                1 -> "COLOR_FormatMonochrome"
+                2 -> "COLOR_Format8bitRGB332"
+                3 -> "COLOR_Format12bitRGB444"
+                4 -> "COLOR_Format16bitARGB4444"
+                5 -> "COLOR_Format16bitARGB1555"
+                6 -> "COLOR_Format16bitRGB565"
+                7 -> "COLOR_Format16bitBGR565"
+                8 -> "COLOR_Format18bitRGB666"
+                9 -> "COLOR_Format18bitARGB1665"
+                else -> "COLOR_Format19bitARGB1666"
+            }
+        }"
+
+
+        stringBuilder.apply {
+            append("long $nano = System.nanoTime();")
+            append("int $width = ${(640..1080).random()};")
+            append("int $height = ${(720..1280).random()};")
+            append("android.media.MediaFormat $objectKey = android.media.MediaFormat.createVideoFormat(\"video/avc\", $width, $height);")
+            append("$objectKey.setInteger( android.media.MediaFormat.KEY_COLOR_FORMAT, $color);")
+            append("$objectKey.setInteger( android.media.MediaFormat.KEY_FRAME_RATE, ${(20..30).random()});")
+            append("$objectKey.setInteger( android.media.MediaFormat.KEY_BIT_RATE, ${width} * $height * ${(1..5).random()});")
+            append("$objectKey.setInteger( android.media.MediaFormat.KEY_I_FRAME_INTERVAL, 1);")
+            append("android.media.MediaCodec $mediaCodec = android.media.MediaCodec.createEncoderByType(\"video/avc\");")
+            append("$mediaCodec.configure($objectKey, null, null, android.media.MediaCodec.CONFIGURE_FLAG_ENCODE);")
+        }
+        return mutableList.apply {
+            add(
+                stringBuilder.toString()
+                    .addTryCatch("java.io.IOException | java.lang.IllegalArgumentException")
+            )
+        }
+
+    }
 
 
     private fun declareValueString(): HashMap<String, String> {
@@ -1187,8 +1571,9 @@ object FileUtils {
 
     }
 
-    fun String.addTryCatch(): String {
-        return "try {$this} catch(java.lang.Exception e) {e.printStackTrace();}"
+    fun String.addTryCatch(exception: String = "java.lang.Exception"): String {
+        val e = generateKey((5..9).random())
+        return "try {$this} catch($exception $e) {$e.printStackTrace();}"
     }
 
     /**
@@ -1202,8 +1587,8 @@ object FileUtils {
     fun newIntArray(start: Int = 2, end: Int = 10): String {
         val r = (start..end).random()
         val stringBuilder = StringBuilder()
-        repeat(r){
-            stringBuilder.append("${(100 .. 8000).random()},")
+        repeat(r) {
+            stringBuilder.append("${(100..8000).random()},")
         }
         return "new int[]{${stringBuilder.toString()}}"
     }
@@ -1211,7 +1596,7 @@ object FileUtils {
     fun newStringArray(start: Int = 2, end: Int = 10): String {
         val r = (start..end).random()
         val stringBuilder = StringBuilder()
-        repeat(r){
+        repeat(r) {
             stringBuilder.append("${generateFunName()},")
         }
         return "new String[]{${stringBuilder.toString()}}"
@@ -1220,8 +1605,8 @@ object FileUtils {
     fun newFloatArray(start: Int = 2, end: Int = 10): String {
         val r = (start..end).random()
         val stringBuilder = StringBuilder()
-        repeat(r){
-            stringBuilder.append("${(100 .. 8000).random()}f,")
+        repeat(r) {
+            stringBuilder.append("${(100..8000).random()}f,")
         }
         return "new int[]{${stringBuilder.toString()}}"
     }
@@ -1229,10 +1614,118 @@ object FileUtils {
     fun newDoubleArray(start: Int = 2, end: Int = 10): String {
         val r = (start..end).random()
         val stringBuilder = StringBuilder()
-        repeat(r){
-            stringBuilder.append("${(100 .. 8000).random()}d,")
+        repeat(r) {
+            stringBuilder.append("${(100..8000).random()}d,")
         }
         return "new int[]{${stringBuilder.toString()}}"
     }
 
+    private fun getActionSetting(): String {
+        return when((0..21).random()){
+            0 -> "android.settings.APP_NOTIFICATION_SETTINGS"
+            1 -> "android.settings.CONVERSATION_SETTINGS"
+            2 -> "android.settings.ALL_APPS_NOTIFICATION_SETTINGS"
+            3 -> "android.settings.NOTIFICATION_HISTORY"
+            4 -> "android.settings.CONVERSATION_SETTINGS"
+            5 -> "android.settings.PAIRING_SETTINGS"
+            6 -> "android.settings.VOICE_CONTROL_DO_NOT_DISTURB_MODE"
+            7 -> "android.settings.ZEN_MODE_EVENT_RULE_SETTINGS"
+            8 -> "android.settings.ZEN_MODE_AUTOMATION_SETTINGS"
+            9 -> "android.settings.SHOW_REGULATORY_INFO"
+            10 -> "android.settings.CALL_METHOD_TRACK_GENERATION_KEY"
+            11 -> "android.settings.BEDTIME_SETTINGS"
+            12 -> "android.settings.MMS_MESSAGE_SETTING"
+            13 -> "android.settings.extra.ENABLE_MMS_DATA_REQUEST_REASON"
+            14 -> "android.settings.SHOW_RESTRICTED_SETTING_DIALOG"
+            15 -> "android.settings.ENABLE_MMS_DATA_REQUEST"
+            16 -> "android.settings.WIFI_TETHER_SETTINGS"
+            17 -> "android.settings.TETHER_SETTINGS"
+            18 -> "android.settings.MANAGE_DOMAIN_URLS"
+            19 -> "android.settings.REQUEST_ENABLE_CONTENT_CAPTURE"
+            20 -> "android.settings.STORAGE_VOLUME_ACCESS_SETTINGS"
+            else -> "com.android.settings.Settings"
+        }
+    }
+
+    private fun getProviderSettings(): String {
+        val num = (0..21).random()
+        return when(num){
+            0 -> "android.provider.Settings.ACTION_SETTINGS"
+            1 -> "android.provider.Settings.ACTION_APN_SETTINGS"
+            2 -> "android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS"
+            3 -> "android.provider.Settings.ACTION_LOCATION_CONTROLLER_EXTRA_PACKAGE_SETTINGS"
+            4 -> "android.provider.Settings.ACTION_LOCATION_SCANNING_SETTINGS"
+            5 -> "android.provider.Settings.ACTION_USER_SETTINGS"
+            6 -> "android.provider.Settings.ACTION_WIRELESS_SETTINGS"
+            7 -> "android.provider.Settings.ACTION_TETHER_PROVISIONING_UI"
+            8 -> "android.provider.Settings.ACTION_TETHER_UNSUPPORTED_CARRIER_UI"
+            9 -> "android.provider.Settings.ACTION_AIRPLANE_MODE_SETTINGS"
+            10 -> "android.provider.Settings.ACTION_MOBILE_DATA_USAGE"
+
+            11 -> "android.provider.Settings.ACTION_ONE_HANDED_SETTINGS"
+            12 -> "android.provider.Settings.ACTION_VOICE_CONTROL_AIRPLANE_MODE"
+            13 -> "android.provider.Settings.ACTION_ACCESSIBILITY_SETTINGS"
+            14 -> "android.provider.Settings.ACTION_ACCESSIBILITY_DETAILS_SETTINGS"
+            15 -> "android.provider.Settings.ACTION_REDUCE_BRIGHT_COLORS_SETTINGS"
+            16 -> "android.provider.Settings.ACTION_CONDITION_PROVIDER_SETTINGS"
+            17 -> "android.provider.Settings.ACTION_APP_OPEN_BY_DEFAULT_SETTINGS"
+            18 -> "android.provider.Settings.ACTION_USAGE_ACCESS_SETTINGS"
+            19 -> "android.provider.Settings.ACTION_SECURITY_SETTINGS"
+            20 -> "android.provider.Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES"
+            else -> "android.provider.Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM"
+        }
+    }
+
+    private fun generateCategory(): String {
+        val cate: String = when((0..20).random()) {
+            0 -> "android.content.Intent.CATEGORY_DEFAULT"
+            1 -> "android.content.Intent.CATEGORY_VOICE"
+            2 -> "android.content.Intent.CATEGORY_ALTERNATIVE"
+            3 -> "android.content.Intent.CATEGORY_SELECTED_ALTERNATIVE"
+            4 -> "android.content.Intent.CATEGORY_TAB"
+            5 -> "android.content.Intent.CATEGORY_LAUNCHER"
+            6 -> "android.content.Intent.CATEGORY_LEANBACK_LAUNCHER"
+            7 -> "android.content.Intent.CATEGORY_CAR_LAUNCHER"
+            8 -> "android.content.Intent.CATEGORY_COMMUNAL_MODE"
+            9 -> "android.content.Intent.CATEGORY_LEANBACK_SETTINGS"
+
+            10 -> "android.content.Intent.CATEGORY_INFO"
+            11 -> "android.content.Intent.CATEGORY_HOME"
+            12 -> "android.content.Intent.CATEGORY_HOME_MAIN"
+            13 -> "android.content.Intent.CATEGORY_SECONDARY_HOME"
+            14 -> "android.content.Intent.CATEGORY_SETUP_WIZARD"
+            15 -> "android.content.Intent.CATEGORY_LAUNCHER_APP"
+            16 -> "android.content.Intent.CATEGORY_PREFERENCE"
+            17 -> "android.content.Intent.CATEGORY_DEVELOPMENT_PREFERENCE"
+            18 -> "android.content.Intent.CATEGORY_EMBED"
+            19 -> "android.content.Intent.CATEGORY_APP_MARKET"
+            else -> "android.content.Intent.CATEGORY_MONKEY"
+        }
+        return cate
+    }
+
+    private fun generateActivityFlag() :String {
+        val flag: String = when((0..16).random()) {
+            0 -> "android.content.Intent.FLAG_ACTIVITY_NEW_TASK"
+            1 -> "android.content.Intent.FLAG_ACTIVITY_MATCH_EXTERNAL"
+            2 -> "android.content.Intent.FLAG_ACTIVITY_NO_HISTORY"
+            3 -> "android.content.Intent.FLAG_ACTIVITY_MULTIPLE_TASK"
+            4 -> "android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP"
+            5 -> "android.content.Intent.FLAG_ACTIVITY_FORWARD_RESULT"
+            6 -> "android.content.Intent.FLAG_ACTIVITY_NO_ANIMATION"
+            7 -> "android.content.Intent.FLAG_ACTIVITY_PREVIOUS_IS_TOP"
+            8 -> "android.content.Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT"
+            9 -> "android.content.Intent.FLAG_ACTIVITY_NEW_DOCUMENT"
+            10 -> "android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK"
+
+            11 -> "android.content.Intent.FLAG_ACTIVITY_TASK_ON_HOME"
+            12 -> "android.content.Intent.FLAG_ACTIVITY_RETAIN_IN_RECENTS"
+            13 -> "android.content.Intent.FLAG_ACTIVITY_LAUNCH_ADJACENT"
+            14 -> "android.content.Intent.FLAG_ACTIVITY_REQUIRE_NON_BROWSER"
+            15 -> "android.content.Intent.FLAG_ACTIVITY_REQUIRE_DEFAULT"
+            else -> "android.content.Intent.FLAG_ACTIVITY_REORDER_TO_FRONT"
+
+        }
+        return flag
+    }
 }

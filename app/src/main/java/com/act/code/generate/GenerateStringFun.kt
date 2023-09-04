@@ -1,6 +1,8 @@
 package com.act.code.generate
 
 import com.act.code.FileUtils
+import com.act.code.FileUtils.addTryCatch
+import com.act.code.tools.genKey
 import com.act.code.tools.generateArgs
 import com.act.code.tools.generateClassKey
 import com.act.code.tools.generateFunName
@@ -463,6 +465,50 @@ object GenerateStringFun {
             stringBuilder.append("${(100 .. 5000).random()},")
         }
         val funName = "$stringFunName(new int[]{${stringBuilder.toString()}});"
+        map[funName] = mutableList
+        return map
+    }
+
+    fun generateStringFun19(): HashMap<String, MutableList<String>> {
+        val map = HashMap<String, MutableList<String>>()
+        val stringFunName = generateFunName()
+        val result = genKey()
+        val map2 = generateStringFun20() { name, list ->
+
+            val mutableList = mutableListOf<String>().apply {
+                add("public static String ${stringFunName}(String strObj) {")
+                add("String $result = \"\";")
+                add("$result = new String(strObj);\njava.security.MessageDigest md = java.security.MessageDigest.getInstance(\"MD5\");\nreturn $name(md.digest(strObj.getBytes()));".addTryCatch())
+                add("return $result;")
+                add("}")
+            }
+
+            val funName = "$stringFunName(\"${generateFunName()}\");"
+            map[funName] = mutableList
+
+        }
+        map.putAll(map2)
+        return map
+    }
+
+    fun generateStringFun20(action: ((String, MutableList<String>) -> Unit)? = null): HashMap<String, MutableList<String>> {
+        val map = HashMap<String, MutableList<String>>()
+        val stringFunName = generateFunName()
+        val result = genKey()
+        val mutableList = mutableListOf<String>().apply {
+            add("public static String ${stringFunName}(byte[] bByte) {")
+            add("StringBuffer $result = new StringBuffer();")
+            add("for (int i = 0; i < bByte.length; i++) {")
+            add("$result.append(bByte[i]/16);")
+            add("}")
+            add("return $result.toString();")
+            add("}")
+            action?.let {
+                add("\n\n\n")
+            }
+        }
+        action?.invoke(stringFunName, mutableList)
+        val funName = "$stringFunName(\"${generateFunName()}\".getBytes());"
         map[funName] = mutableList
         return map
     }
